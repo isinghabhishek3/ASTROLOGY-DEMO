@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Astrology DEMO &#8211; Astrology &amp; Horoscope WordPress Theme</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="icon" type="image/jpeg" href="thumbnail.jpg">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&family=Great+Vibes&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playwrite+TZ+Guides&display=swap" rel="stylesheet">
+        <style>
+        video {
+            object-fit: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(20%);
+        }
+
+        .moon {
+            color: white;
+            font-size: 0.4rem;
+        }
+
+        .relative {
+            position: relative;
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .zoom-image {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+
+        }
+
+        .image-container:hover .zoom-image {
+            transform: scale(1.1);
+            filter: brightness(0.7);
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            font-family: cursive;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+       }
+
+        .image-container:hover .overlay-text {
+            opacity: 1;
+        }
+
+        .mirror-div {
+      border-radius: 50% 50% 0 0; 
+      overflow: hidden; 
+      z-index: 10; 
+      box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.3); 
+      position: relative; 
+    }
+
+    
+    .outer-div {
+      border-radius: 0 0 55% 55%;
+      position: relative; 
+      overflow: hidden;
+    }
+
+    .left-div, .right-div {
+      position: absolute;
+      top: 40%;
+      bottom: 4%;
+      transform: translateY(-50%);
+      width: 49%;
+      height: 80%;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .left-div {
+      left: 0;
+      background-size: 85%; 
+       background-position: left ;
+       background-repeat: no-repeat; 
+     
+      }
+
+    .right-div {
+      right: 0;
+
+      background-image: url('video/clear-22.png'); 
+      background-size: 55%;
+      background-repeat: no-repeat;
+      background-position: right;
+      border-radius: 50% 0 0 50%;
+      border: 2px dotted black; 
+    }
+   
+    .mirror-div img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .center-div {
+      position: absolute;
+      top: 45px; 
+      left: 59%;
+      transform: translateX(-50%); 
+      padding: 10px;
+      border-radius: 50%;
+      width: 120px; 
+      height: 90px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      z-index: 20; 
+    }
+    .pacifico-regular {
+      font-family: "Pacifico", cursive;
+      font-weight: 400;
+      font-style: normal;
+    }
+    
+    .center-divs {
+      position: absolute;
+      top: 63%; 
+      left: 36%;
+      transform: translateX(-50%); 
+      padding: 10px;
+      border-radius: 50%;
+      width: 120px; 
+      height: 90px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      z-index: 20;
+    }
+    .center-divss {
+      position: absolute;
+      top: -65%;
+      left: 310px;
+      transform: translateX(-50%); 
+      padding: 10px;
+      border-radius: 50%;
+      width: 38%;
+      height: 42%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      z-index: 20;
+    }
+    .center-divst {
+      
+      top: -95%;
+      left:95%;
+      transform: translateX(-50%); 
+      padding: 10px;
+      width: 89%;
+      height: 42%;
+      display: flex;
+      
+      
+      font-size: 18px;
+      font-weight: bold;
+      z-index: 20; 
+    }
+    #dynamic-text1 {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+        </style>
+    </head>
+    <body>
+        <header class="relative">
+            <video
+                autoplay
+                muted
+                loop
+                class="hidden absolute md:block h-[57px]"
+            >
+                <source src="video\Astrology - video 02.mp4" type="video/mp4">
+            </video>
+            <nav class="items-center justify-between h-[57px] px-5 text-gray-100 bg-black/80 opacity-120 hidden md:flex">
+                <div class="flex items-center space-x-6 text-sm font-semibold">
+                    <a href="#" class="hover:text-gray-200">Conditions</a>
+                    <span class="rotate-90 inline-block moon">&#x1F319;</span>
+                    <a href="#" class="hover:text-gray-200">Quality</a>
+                    <span class="rotate-90 inline-block moon">&#x1F319;</span>
+                    <a href="#" class="hover:text-gray-200">Stay Connected</a>
+                </div>
+                <div class="flex-1"></div>
+                <div class="flex items-center space-x-6 text-sm font-semibold">
+                    <a href="#" class="hover:text-gray-200">Facebook</a>
+                    <span class="rotate-90 inline-block moon">&#x1F319;</span>
+                    <a href="#" class="hover:text-gray-200">Twitter</a>
+                    <span class="rotate-90 inline-block moon">&#x1F319;</span>
+                    <a href="#" class="hover:text-gray-200">Instagram</a>
+                </div>
+            </nav>
+        </header>
+        <nav class="border-b-2 bg-white border-dotted">
+            <div class="container mx-auto flex w-[600p]  items-center justify-between p-0">
+                <div class="hidden lg:flex items-center space-x-4 px-4">
+                    <img src="video/star.png" alt="Star" class="w-8 h-8">
+                    <ul class="flex space-x-8">
+                        <li class="relative group">
+                            <button class="flex items-center space-x-2 ">
+                                <span>Home</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path fill-rule="evenodd" d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                            <div class="absolute z-[9999] hidden group-hover:block bg-black shadow-lg  text-white  mt-2 w-36">
+                                <ul class="text-sm text-center">
+                                    <li class="hover:bg-gray-200 hover:text-black   px-4 py-2 cursor-pointer">Astrology</li>
+                                    <li class="hover:bg-gray-200  hover:text-black px-4 py-2 cursor-pointer">Horoscope</li>
+                                    <li class="hover:bg-gray-200  hover:text-black px-4 py-2 cursor-pointer">
+                                        Fortune Teller
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="relative group">
+                            <button class="flex items-center space-x-2">
+                                <span>About</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path fill-rule="evenodd" d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                            <div class="absolute z-[9999] hidden group-hover:block bg-black shadow-lg text-white mt-2 w-36">
+                                <ul class="text-sm text-center">
+                                    <li class="hover:bg-gray-200 px-4 py-2  hover:text-black cursor-pointer">About Us 1</li>
+                                    <li class="hover:bg-gray-200 px-4 py-2  hover:text-black cursor-pointer">About Us 2</li>
+                                    <li class="hover:bg-gray-200 px-4 py-2  hover:text-black  cursor-pointer">Service</li>
+                                    <li class="hover:bg-gray-200 px-4 py-2   hover:text-black cursor-pointer">Prices</li>
+                                    <li class="hover:bg-gray-200 px-4 py-2  hover:text-black cursor-pointer">Contact</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li id="pageDropdown" class="relative">
+                            <button class="flex items-center space-x-2">
+                                <span>Pages</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path fill-rule="evenodd" d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                            <div class="absolute z-[9999] hidden bg-black text-white shadow-lg mt-2 w-36">
+                                <ul class="text-sm">
+                                    <li id="homeDropdown" class="relative text-center">
+                                        <button class="flex items-center justify-center space-x-2 w-full px-4 py-2 hover:bg-gray-200 hover:text-black">
+                                            <span>Home</span>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="h-4 w-4 transform -rotate-90"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                            >
+                                                <path fill-rule="evenodd" d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </button>
+                                        <div class="absolute z-[9999] hidden bg-black text-white shadow-lg left-full top-0 w-36">
+                                            <ul class="text-sm">
+                                                <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                                    Astrology
+                                                </li>
+                                                <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                                    Horoscope
+                                                </li>
+                                                <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                                    Fortune Teller
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li id="aboutDropdown" class="relative text-center">
+                                        <button class="flex items-center justify-center space-x-2 w-full px-4 py-2 hover:bg-gray-200 hover:text-black">
+                                            <span>About</span>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="h-4 w-4 transform -rotate-90"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                            >
+                                                <path fill-rule="evenodd" d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </button>
+                                        <div class="z-[9999] absolute hidden bg-black text-white shadow-lg left-full top-0 w-36">
+                                            <ul class="text-sm text-center">
+                                                <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                                    About 1
+                                                </li>
+                                                <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                                    About 2
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="text-center z-[9999] hover:bg-gray-200 hover:text-black  px-4 py-2 cursor-pointer">
+                                        Prices
+                                    </li>
+                                    <li class="text-center z-[9999] hover:bg-gray-200 hover:text-black  px-4 py-2 cursor-pointer">
+                                        Services
+                                    </li>
+                                    <li class="text-center z-[9999] hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                        Tarot Reading
+                                    </li>
+                                    <li class="text-center z-[9999] hover:bg-gray-200 hover:text-black  px-4 py-2 cursor-pointer">
+                                        Contact
+                                    </li>
+                                    <li class="text-center z-[9999] hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                        Coming Soon
+                                    </li>
+                                    <li class="text-center z-[9999] hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                        404
+                                    Page
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="relative group">
+                            <button class="flex items-center space-x-2">
+                                <span>Shop</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path fill-rule="evenodd" d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                            <div class="absolute z-[9999] hidden group-hover:block bg-black shadow-lg text-white mt-2 w-36">
+                                <ul class="text-sm text-center">
+                                    <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">Archive</li>
+                                    <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                        Single Product
+                                    </li>
+                                    <li class="hover:bg-gray-200 hover:text-black  px-4 py-2 cursor-pointer">Cart</li>
+                                    <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">Checkout</li>
+                                    <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">My Account</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li id="blogDropdown" class="relative group">
+                            <button class="flex items-center space-x-2">
+                                <span>Blog</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path fill-rule="evenodd" d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                            <div class="absolute z-[9999] hidden group-hover:block bg-black text-white shadow-lg mt-2 w-36">
+                                <ul class="text-sm text-center">
+                                    <li id="archiveDropdown01" class="relative text-center">
+                                        <button class="flex items-center justify-center space-x-2 w-full px-4 py-2 hover:bg-gray-200">
+                                            <span>Archive 01</span>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="h-4 w-4 transform -rotate-90"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                            >
+                                                <path fill-rule="evenodd" d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </button>
+                                        <div id="nestedArchiveDropdown01" class="absolute z-[9999] hidden bg-black shadow-lg text-white left-full top-0 w-36">
+                                            <ul class="text-sm text-center">
+                                                <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                                    Full
+                                                Width
+                                                </li>
+                                                <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                                    Right Sidebar
+                                                </li>
+                                                <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                                    Left
+                                                Sidebar
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li id="archiveDropdown02" class="relative text-center">
+                                        <button class="flex items-center justify-center space-x-2 w-full px-4 py-2 hover:bg-gray-200">
+                                            <span>Archive 02</span>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="h-4 w-4 transform -rotate-90"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                            >
+                                                <path fill-rule="evenodd" d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </button>
+                                        <div id="nestedArchiveDropdown02" class="absolute z-[9999] hidden bg-black shadow-lg text-white left-full top-0 w-36">
+                                            <ul class="text-sm text-center">
+                                                <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                                    Full
+                                                Width
+                                                </li>
+                                                <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                                    Right Sidebar
+                                                </li>
+                                                <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                                    Left
+                                                Sidebar
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li id="singlePostDropdown" class="relative text-center">
+                                        <button class="flex items-center justify-center space-x-2 w-full px-4 py-2 hover:bg-gray-200">
+                                            <span>Single Post</span>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="h-4 w-4 transform -rotate-90"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                            >
+                                                <path fill-rule="evenodd" d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </button>
+                                        <div id="nestedSinglePostDropdown" class="absolute z-[9999] hidden bg-black shadow-lg text-white left-full top-0 w-36">
+                                            <ul class="text-sm text-center">
+                                                <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                                    Full
+                                                Width
+                                                </li>
+                                                <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                                    Right Sidebar
+                                                </li>
+                                                <li class="hover:bg-gray-200 hover:text-black px-4 py-2 cursor-pointer">
+                                                    Left
+                                                Sidebar
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="relative ">
+                            <button class="flex items-center space-x-2">
+                                <span>Contact</span>
+                            </button>
+                        </li>
+                    </div>
+                    <div class="relative h-24 md:h-32 overflow-hidden mx-auto lg:mx-0 lg:-ml-[280px] w-80 flex items-center">
+                        <div class=" absolute mx-auto inset-0 h-[90%] w-[40%] md:w-[60%] bg-cover bg-center" style="background-image: url('video/clear-18-min.png');">
+                            <div class="absolute inset-0 bg-white opacity-90"></div>
+                            <div class="relative z-10 flex justify-center items-center">
+                                <img src="video/logo-dark.png" alt="Logo" class="w-36 mt-12 h-11">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mx-6 hidden lg:block">
+                        <button class="border-dotted border-gray-300 border-2  text-black px-8 py-2 ">
+                            Card Reading
+                        </button>
+                    </div>
+                </div>
+            </nav>
+            <div class="relative w-full h-[110vh] flex items-end justify-center">
+                <div class="outer-div absolute bottom-3 bg-gray-100 w-full h-full max-w-[2000px] max-h-[2200px]">
+                    <div class="left-div relative bg-gray-100 z-10 opacity-10"></div>
+                    <div class="right-div bg-gray-100 opacity-5 "></div>
+                    <div class="hidden lg:block center-div mt-24">
+                        <img src="video/jupiter-planet-gas-giant-2023-11-27-05-09-14-utc-min.png" alt="Centered Image">
+                    </div>
+                    <div class="center-divs mt-24">
+                        <img src="video/diamond.png" alt="Centered Image">
+                    </div>
+                    <div class="hidden center-divss lg:flex flex-col items-start justify-center text-left p-8 relative">
+                        <p id="top-heading" class="text-xl ml-[9%] mt-[9%] md:text-2xl lg:text-6xl font-bold text-black">The Secrets of</p>
+                        <p id="dynamic-text" class="text-2xl pacifico-regular ml-[9%] md:text-3xl lg:text-6xl font-extrabold text-black mt-2">Horoscope</p>
+                        <p class="text-lg md:text-xl lg:text-3xl ml-[39%] font-semibold text-black mt-8">Reading</p>
+                        <p class="text-sm md:text-base ml-[39%] lg:text-4xl text-gray-600 mt-4">
+                            Unveil Your Future
+                        </p>
+                        <p class="text-sm md:text-base ml-[39%] lg:text-lg text-gray-500 mt-4 leading-relaxed">
+                            Step into the mystical world of tarot and uncover the secrets that the future holds. Let our experienced fortune teller guide you through the cards, revealing insights and wisdom tailored just for you.
+                        </p>
+                        <button class="mt-6 px-6 py-2 ml-[39%] border-2 border-dotted border-indigo-600 text-indigo-600 rounded-md hover:bg-indigo-600 hover:text-white transition-all">
+                            Request a Queue
+                        </button>
+                    </div>
+                    <div class="hidden  center-divst lg:flex flex-col items-start justify-center  relative">
+                        <p id="top-heading" class="text-xl ml-[17%] mt-[0%] md:text-2xl lg:text-7xl font-bold text-black ">Discover Your</p>
+                        <div class="flex items-center ml-[6%] mt-9">
+                            <p class="text-3xl md:text-3xl lg:text-7xl font-extrabold text-black ml-2 mr-4">
+                                Destiny
+                            </p>
+                            <p id="dynamic-text1" class="text-3xl pacifico-regular md:text-3xl lg:text-7xl font-dancing-script italic font-extrabold text-black">
+                                with cards
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mirror-div absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-0 bg-blue-500 w-[50vh] h-[70vh] max-w-[600px] max-h-[600px]">
+                        <img id="mirrorImage" src="video/sq-01.jpg" alt="Mirrored Image">
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative hidden py-14 sm:flex max-w-full h-full px-4 sm:px-8 lg:px-12">
+                <div class="flex flex-col sm:max-w-[50%] lg:max-w-[33%] lg:max-h-screen gap-6 relative">
+                    <div class="image-container">
+                        <img src="./Images/1.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Future Prediction</div>
+                    </div>
+                    <div class="image-container">
+                        <img src="./Images/2.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Medium</div>
+                    </div>
+                    <div class="image-container hidden sm:flex lg:hidden">
+                        <img src="./Images/3.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Tarot Reading</div>
+                    </div>
+                </div>
+                <div class="flex flex-col  lg:max-w-[33%] lg:max-h-screen gap-6 ml-6 relative">
+                    <div class="image-container sm:hidden lg:flex">
+                        <img src="./Images/3.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Tarot Reading</div>
+                    </div>
+                    <div class="image-container">
+                        <img src="./Images/4.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Chakra Alignment</div>
+                    </div>
+                    <div class="image-container hidden sm:block lg:hidden">
+                        <img src="./Images/5.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Pendulum</div>
+                    </div>
+                    <div class="image-container hidden sm:block lg:hidden">
+                        <img src="./Images/6.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Crystal Therapy</div>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:hidden lg:flex lg:max-w-[33%] lg:max-h-screen gap-6 ml-6 relative">
+                    <div class="image-container sm:hidden lg:block">
+                        <img src="./Images/5.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Pendulum</div>
+                    </div>
+                    <div class="image-container sm:hidden lg:block">
+                        <img src="./Images/6.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Crystal Therapy</div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative py-8 flex sm:hidden max-w-full h-full px-4 sm:px-8 lg:px-12">
+                <div class="flex flex-col gap-6 relative">
+                    <div class="image-container">
+                        <img src="./Images/1.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Future Prediction</div>
+                    </div>
+                    <div class="image-container">
+                        <img src="./Images/2.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Medium</div>
+                    </div>
+                    <div class="image-container ">
+                        <img src="./Images/3.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Tarot Reading</div>
+                    </div>
+                    <div class="image-container">
+                        <img src="./Images/4.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Chakra Alignment</div>
+                    </div>
+                    <div class="image-container ">
+                        <img src="./Images/5.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Pendulum</div>
+                    </div>
+                    <div class="image-container ">
+                        <img src="./Images/6.jpg" alt="" class="zoom-image">
+                        <div class="overlay-text">Crystal Therapy</div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <footer>
+                <div class="relative h-[930px] md:h-[500px]">
+                    <video
+                    class="video-bg"
+                    autoplay
+                        loop
+                        muted
+                    >
+                        <source src="video/Astrology - video 02.mp4" type="video/mp4">
+                    </video>
+                    <div class="relative py-20 md:py-0 z-10 text-gray-200 h-full flex flex-col md:flex-row md:justify-between items-center px-8 lg:px-20">
+                        <div class="justify-center items-center text-center md:text-left">
+                            <div class="mb-4 font-semibold text-2xl">Address:</div>
+                            <p class="mb-2.5">Address : 1080 Brickell Ave</p>
+                            <p class="mb-2.5">City : Miami (Florida)</p>
+                            <p class="mb-2.5">Country : United States</p>
+                            <div class="flex space-x-4 ml-5 md:ml-0 mt-5">
+                                <div class="w-6 rounded shadow-md">
+                                    <svg
+                                    aria-hidden="true"
+                                    class="e-font-icon-svg e-fab-cc-visa"
+                                    viewBox="0 0 576 512"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                    <path fill="white" d="M470.1 231.3s7.6 37.2 9.3 45H446c3.3-8.9 16-43.5 16-43.5-.2.3 3.3-9.1 5.3-14.9l2.8 13.4zM576 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h480c26.5 0 48 21.5 48 48zM152.5 331.2L215.7 176h-42.5l-39.3 106-4.3-21.5-14-71.4c-2.3-9.9-9.4-12.7-18.2-13.1H32.7l-.7 3.1c15.8 4 29.9 9.8 42.2 17.1l35.8 135h42.5zm94.4.2L272.1 176h-40.2l-25.1 155.4h40.1zm139.9-50.8c.2-17.7-10.6-31.2-33.7-42.3-14.1-7.1-22.7-11.9-22.7-19.2.2-6.6 7.3-13.4 23.1-13.4 13.1-.3 22.7 2.8 29.9 5.9l3.6 1.7 5.5-33.6c-7.9-3.1-20.5-6.6-36-6.6-39.7 0-67.6 21.2-67.8 51.4-.3 22.3 20 34.7 35.2 42.2 15.5 7.6 20.8 12.6 20.8 19.3-.2 10.4-12.6 15.2-24.1 15.2-16 0-24.6-2.5-37.7-8.3l-5.3-2.5-5.6 34.9c9.4 4.3 26.8 8.1 44.8 8.3 42.2.1 69.7-20.8 70-53zM528 331.4L495.6 176h-31.1c-9.6 0-16.9 2.8-21 12.9l-59.7 142.5H426s6.9-19.2 8.4-23.3H486c1.2 5.5 4.8 23.3 4.8 23.3H528z"></path>
+                                </svg>
+                            </div>
+                            <div class="w-6 rounded shadow-md">
+                                <svg
+                                aria-hidden="true"
+                                class="e-font-icon-svg e-fab-cc-paypal"
+                                viewBox="0 0 576 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                                >
+                                <path fill="white" d="M186.3 258.2c0 12.2-9.7 21.5-22 21.5-9.2 0-16-5.2-16-15 0-12.2 9.5-22 21.7-22 9.3 0 16.3 5.7 16.3 15.5zM80.5 209.7h-4.7c-1.5 0-3 1-3.2 2.7l-4.3 26.7 8.2-.3c11 0 19.5-1.5 21.5-14.2 2.3-13.4-6.2-14.9-17.5-14.9zm284 0H360c-1.8 0-3 1-3.2 2.7l-4.2 26.7 8-.3c13 0 22-3 22-18-.1-10.6-9.6-11.1-18.1-11.1zM576 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h480c26.5 0 48 21.5 48 48zM128.3 215.4c0-21-16.2-28-34.7-28h-40c-2.5 0-5 2-5.2 4.7L32 294.2c-.3 2 1.2 4 3.2 4h19c2.7 0 5.2-2.9 5.5-5.7l4.5-26.6c1-7.2 13.2-4.7 18-4.7 28.6 0 46.1-17 46.1-45.8zm84.2 8.8h-19c-3.8 0-4 5.5-4.2 8.2-5.8-8.5-14.2-10-23.7-10-24.5 0-43.2 21.5-43.2 45.2 0 19.5 12.2 32.2 31.7 32.2 9 0 20.2-4.9 26.5-11.9-.5 1.5-1 4.7-1 6.2 0 2.3 1 4 3.2 4H200c2.7 0 5-2.9 5.5-5.7l10.2-64.3c.3-1.9-1.2-3.9-3.2-3.9zm40.5 97.9l63.7-92.6c.5-.5.5-1 .5-1.7 0-1.7-1.5-3.5-3.2-3.5h-19.2c-1.7 0-3.5 1-4.5 2.5l-26.5 39-11-37.5c-.8-2.2-3-4-5.5-4h-18.7c-1.7 0-3.2 1.8-3.2 3.5 0 1.2 19.5 56.8 21.2 62.1-2.7 3.8-20.5 28.6-20.5 31.6 0 1.8 1.5 3.2 3.2 3.2h19.2c1.8-.1 3.5-1.1 4.5-2.6zm159.3-106.7c0-21-16.2-28-34.7-28h-39.7c-2.7 0-5.2 2-5.5 4.7l-16.2 102c-.2 2 1.3 4 3.2 4h20.5c2 0 3.5-1.5 4-3.2l4.5-29c1-7.2 13.2-4.7 18-4.7 28.4 0 45.9-17 45.9-45.8zm84.2 8.8h-19c-3.8 0-4 5.5-4.3 8.2-5.5-8.5-14-10-23.7-10-24.5 0-43.2 21.5-43.2 45.2 0 19.5 12.2 32.2 31.7 32.2 9.3 0 20.5-4.9 26.5-11.9-.3 1.5-1 4.7-1 6.2 0 2.3 1 4 3.2 4H484c2.7 0 5-2.9 5.5-5.7l10.2-64.3c.3-1.9-1.2-3.9-3.2-3.9zm47.5-33.3c0-2-1.5-3.5-3.2-3.5h-18.5c-1.5 0-3 1.2-3.2 2.7l-16.2 104-.3.5c0 1.8 1.5 3.5 3.5 3.5h16.5c2.5 0 5-2.9 5.2-5.7L544 191.2v-.3zm-90 51.8c-12.2 0-21.7 9.7-21.7 22 0 9.7 7 15 16.2 15 12 0 21.7-9.2 21.7-21.5.1-9.8-6.9-15.5-16.2-15.5z"></path>
+                                    </svg>
+                                </div>
+                                <div class="w-6 rounded shadow-md">
+                                    <svg
+                                    aria-hidden="true"
+                                    class="e-font-icon-svg e-fab-cc-mastercard"
+                                    viewBox="0 0 576 512"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                    <path fill="white" d="M482.9 410.3c0 6.8-4.6 11.7-11.2 11.7-6.8 0-11.2-5.2-11.2-11.7 0-6.5 4.4-11.7 11.2-11.7 6.6 0 11.2 5.2 11.2 11.7zm-310.8-11.7c-7.1 0-11.2 5.2-11.2 11.7 0 6.5 4.1 11.7 11.2 11.7 6.5 0 10.9-4.9 10.9-11.7-.1-6.5-4.4-11.7-10.9-11.7zm117.5-.3c-5.4 0-8.7 3.5-9.5 8.7h19.1c-.9-5.7-4.4-8.7-9.6-8.7zm107.8.3c-6.8 0-10.9 5.2-10.9 11.7 0 6.5 4.1 11.7 10.9 11.7 6.8 0 11.2-4.9 11.2-11.7 0-6.5-4.4-11.7-11.2-11.7zm105.9 26.1c0 .3.3.5.3 1.1 0 .3-.3.5-.3 1.1-.3.3-.3.5-.5.8-.3.3-.5.5-1.1.5-.3.3-.5.3-1.1.3-.3 0-.5 0-1.1-.3-.3 0-.5-.3-.8-.5-.3-.3-.5-.5-.5-.8-.3-.5-.3-.8-.3-1.1 0-.5 0-.8.3-1.1 0-.5.3-.8.5-1.1.3-.3.5-.3.8-.5.5-.3.8-.3 1.1-.3.5 0 .8 0 1.1.3.5.3.8.3 1.1.5s.2.6.5 1.1zm-2.2 1.4c.5 0 .5-.3.8-.3.3-.3.3-.5.3-.8 0-.3 0-.5-.3-.8-.3 0-.5-.3-1.1-.3h-1.6v3.5h.8V426h.3l1.1 1.4h.8l-1.1-1.3zM576 81v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V81c0-26.5 21.5-48 48-48h480c26.5 0 48 21.5 48 48zM64 220.6c0 76.5 62.1 138.5 138.5 138.5 27.2 0 53.9-8.2 76.5-23.1-72.9-59.3-72.4-171.2 0-230.5-22.6-15-49.3-23.1-76.5-23.1-76.4-.1-138.5 62-138.5 138.2zm224 108.8c70.5-55 70.2-162.2 0-217.5-70.2 55.3-70.5 162.6 0 217.5zm-142.3 76.3c0-8.7-5.7-14.4-14.7-14.7-4.6 0-9.5 1.4-12.8 6.5-2.4-4.1-6.5-6.5-12.2-6.5-3.8 0-7.6 1.4-10.6 5.4V392h-8.2v36.7h8.2c0-18.9-2.5-30.2 9-30.2 10.2 0 8.2 10.2 8.2 30.2h7.9c0-18.3-2.5-30.2 9-30.2 10.2 0 8.2 10 8.2 30.2h8.2v-23zm44.9-13.7h-7.9v4.4c-2.7-3.3-6.5-5.4-11.7-5.4-10.3 0-18.2 8.2-18.2 19.3 0 11.2 7.9 19.3 18.2 19.3 5.2 0 9-1.9 11.7-5.4v4.6h7.9V392zm40.5 25.6c0-15-22.9-8.2-22.9-15.2 0-5.7 11.9-4.8 18.5-1.1l3.3-6.5c-9.4-6.1-30.2-6-30.2 8.2 0 14.3 22.9 8.3 22.9 15 0 6.3-13.5 5.8-20.7.8l-3.5 6.3c11.2 7.6 32.6 6 32.6-7.5zm35.4 9.3l-2.2-6.8c-3.8 2.1-12.2 4.4-12.2-4.1v-16.6h13.1V392h-13.1v-11.2h-8.2V392h-7.6v7.3h7.6V416c0 17.6 17.3 14.4 22.6 10.9zm13.3-13.4h27.5c0-16.2-7.4-22.6-17.4-22.6-10.6 0-18.2 7.9-18.2 19.3 0 20.5 22.6 23.9 33.8 14.2l-3.8-6c-7.8 6.4-19.6 5.8-21.9-4.9zm59.1-21.5c-4.6-2-11.6-1.8-15.2 4.4V392h-8.2v36.7h8.2V408c0-11.6 9.5-10.1 12.8-8.4l2.4-7.6zm10.6 18.3c0-11.4 11.6-15.1 20.7-8.4l3.8-6.5c-11.6-9.1-32.7-4.1-32.7 15 0 19.8 22.4 23.8 32.7 15l-3.8-6.5c-9.2 6.5-20.7 2.6-20.7-8.6zm66.7-18.3H408v4.4c-8.3-11-29.9-4.8-29.9 13.9 0 19.2 22.4 24.7 29.9 13.9v4.6h8.2V392zm33.7 0c-2.4-1.2-11-2.9-15.2 4.4V392h-7.9v36.7h7.9V408c0-11 9-10.3 12.8-8.4l2.4-7.6zm40.3-14.9h-7.9v19.3c-8.2-10.9-29.9-5.1-29.9 13.9 0 19.4 22.5 24.6 29.9 13.9v4.6h7.9v-51.7zm7.6-75.1v4.6h.8V302h1.9v-.8h-4.6v.8h1.9zm6.6 123.8c0-.5 0-1.1-.3-1.6-.3-.3-.5-.8-.8-1.1-.3-.3-.8-.5-1.1-.8-.5 0-1.1-.3-1.6-.3-.3 0-.8.3-1.4.3-.5.3-.8.5-1.1.8-.5.3-.8.8-.8 1.1-.3.5-.3 1.1-.3 1.6 0 .3 0 .8.3 1.4 0 .3.3.8.8 1.1.3.3.5.5 1.1.8.5.3 1.1.3 1.4.3.5 0 1.1 0 1.6-.3.3-.3.8-.5 1.1-.8.3-.3.5-.8.8-1.1.3-.6.3-1.1.3-1.4zm3.2-124.7h-1.4l-1.6 3.5-1.6-3.5h-1.4v5.4h.8v-4.1l1.6 3.5h1.1l1.4-3.5v4.1h1.1v-5.4zm4.4-80.5c0-76.2-62.1-138.3-138.5-138.3-27.2 0-53.9 8.2-76.5 23.1 72.1 59.3 73.2 171.5 0 230.5 22.6 15 49.5 23.1 76.5 23.1 76.4.1 138.5-61.9 138.5-138.4z"></path>
+                                </svg>
+                                </div>
+                                <div class="w-6 rounded shadow-md">
+                                    <svg
+                                        aria-hidden="true"
+                                        class="e-font-icon-svg e-fab-cc-stripe"
+                                        viewBox="0 0 576 512"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path fill="white" d="M492.4 220.8c-8.9 0-18.7 6.7-18.7 22.7h36.7c0-16-9.3-22.7-18-22.7zM375 223.4c-8.2 0-13.3 2.9-17 7l.2 52.8c3.5 3.7 8.5 6.7 16.8 6.7 13.1 0 21.9-14.3 21.9-33.4 0-18.6-9-33.2-21.9-33.1zM528 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h480c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM122.2 281.1c0 25.6-20.3 40.1-49.9 40.3-12.2 0-25.6-2.4-38.8-8.1v-33.9c12 6.4 27.1 11.3 38.9 11.3 7.9 0 13.6-2.1 13.6-8.7 0-17-54-10.6-54-49.9 0-25.2 19.2-40.2 48-40.2 11.8 0 23.5 1.8 35.3 6.5v33.4c-10.8-5.8-24.5-9.1-35.3-9.1-7.5 0-12.1 2.2-12.1 7.7 0 16 54.3 8.4 54.3 50.7zm68.8-56.6h-27V275c0 20.9 22.5 14.4 27 12.6v28.9c-4.7 2.6-13.3 4.7-24.9 4.7-21.1 0-36.9-15.5-36.9-36.5l.2-113.9 34.7-7.4v30.8H191zm74 2.4c-4.5-1.5-18.7-3.6-27.1 7.4v84.4h-35.5V194.2h30.7l2.2 10.5c8.3-15.3 24.9-12.2 29.6-10.5h.1zm44.1 91.8h-35.7V194.2h35.7zm0-142.9l-35.7 7.6v-28.9l35.7-7.6zm74.1 145.5c-12.4 0-20-5.3-25.1-9l-.1 40.2-35.5 7.5V194.2h31.3l1.8 8.8c4.9-4.5 13.9-11.1 27.8-11.1 24.9 0 48.4 22.5 48.4 63.8 0 45.1-23.2 65.5-48.6 65.6zm160.4-51.5h-69.5c1.6 16.6 13.8 21.5 27.6 21.5 14.1 0 25.2-3 34.9-7.9V312c-9.7 5.3-22.4 9.2-39.4 9.2-34.6 0-58.8-21.7-58.8-64.5 0-36.2 20.5-64.9 54.3-64.9 33.7 0 51.3 28.7 51.3 65.1 0 3.5-.3 10.9-.4 12.9z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center w-full md:w-[30%] mt-20 md:mt-0">
+                            <img src="video/logo-white.png" alt="Logo" class="w-18 h-10 mx-auto mb-10">
+                            <p>
+                                Unlock the secrets of the cosmos and transform your life today! Connect with me for personalized
+                                consultations that reveal your unique strengths and help you navigate challenges with
+                                confidence.
+                            </p>
+                            <div class="flex space-x-4 items-center justify-center mt-5">
+                                <div class="w-6 rounded shadow-md">
+                                    <svg class="e-font-icon-svg e-fab-facebook" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="white" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"></path>
+                                    </svg>
+                                </div>
+                                <div class="w-6 rounded shadow-md">
+                                    <svg class="e-font-icon-svg e-fab-twitter" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="white" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path>
+                                    </svg>
+                                </div>
+                                <div class="w-6 rounded shadow-md">
+                                    <svg class="e-font-icon-svg e-fab-youtube" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z" fill="white"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:text-right text-center text-gray-200 mt-20 md:mt-0">
+                            <div class="mb-5 font-bold text-2xl">Info:</div>
+                            <p class="mb-2.5">Support : Info@astroly.com</p>
+                            <p class="mb-2.5">Email : Info@ta.com</p>
+                            <p>Phone : +792739729</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-black w-full absolute flex text-white py-4 text-center">
+                    <div class="flex mx-auto text-sm sm:text-md space-x-2 sm:space-x-8">
+                        <span>Card Reading</span>
+                        <span class="text-white">&#8226;</span>
+                        <span>Check Balancing</span>
+                        <span class="text-white">&#8226;</span>
+                        <span>Mineraltholy</span>
+                    </div>
+                </div>
+                <div class="z-30">
+                    <button class="-mt-[48px] flex ml-auto mr-4 md:mr-10 h-10 md:h-12 border-dotted border-gray-300 border-2  text-white px-4 md:px-8 py-2 ">
+                        Purchase Now
+                    </button>
+                </div>
+            </footer>
+        <script src="script.js"></script>
+    </body>
+</html>
